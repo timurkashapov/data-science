@@ -1,4 +1,9 @@
 import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,13 +55,47 @@ public class App {
     private int[][] vector;
 
     /**
-     * Буферезированное чтение (Buffered reader).
+     * Множество данных строкового типа.
      */
-    private BufferedReader bReader;
+    private String[] dataset;
+
+    /**
+     * Буферезированное чтение (Buffered reader) позволяет избежать ошибок при чтении больших файлов.
+     */
+    private BufferedReader bffReader;
+
+    /**
+     * Чтение строк (File reader).
+     */
+    private FileReader fReader;
 
     public static void main(String[] args) {
 
         List<Record> recordList = new ArrayList<>();
         Map<String, Record> recordMap = new HashMap<>();
+
+        // exact file locality...
+        try(BufferedReader bffInput = new BufferedReader(new FileReader("somefile.txt"))) {
+            String columnNames = bffInput.readLine();
+            String line;
+            while( (line = bffInput.readLine()) != null ) {
+                // todo: parse line.
+            }
+        } catch(IOException e) {
+            System.err.println("Error > " + e.getMessage());
+        }
+
+        // exact file remotely...
+        try {
+            URL url = new URL("http://storage.example.com/public-data/somefile.txt");
+            BufferedReader bffInput = new BufferedReader(new InputStreamReader(url.openStream()));
+            String columnNames = bffInput.readLine();
+            String line;
+            while( (line = bffInput.readLine()) != null ) {
+                // todo: parse line.
+            }
+        } catch (IOException e) {
+            System.err.println("Error > " + e.getMessage());
+        }
     }
 }
