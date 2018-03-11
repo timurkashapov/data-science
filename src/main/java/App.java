@@ -1,3 +1,7 @@
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -97,5 +101,36 @@ public class App {
         } catch (IOException e) {
             System.err.println("Error > " + e.getMessage());
         }
+
+
+        String line = "0, Kost, 2012";
+
+        // CSV
+        // 1,Lost,2015
+        // 2,Post,2090
+        // ...
+        String[] csv = line.split(",");
+        int id = Integer.valueOf(csv[0]);
+        String city = csv[1].trim().replace("\"", "");
+        int year = Integer.valueOf(csv[2]);
+
+        try {
+            CSVParser csvParser = CSVParser.parse(line, CSVFormat.RFC4180);
+            for (CSVRecord record : csvParser) {
+                id = Integer.valueOf(record.get(1));
+                city = record.get(2);
+                year = Integer.valueOf(record.get(3));
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        // TSV
+        // 1    Lost    2015
+        // 2    Post    2090
+        // ...
+        String[] tsv = line.split("\t");
     }
 }
