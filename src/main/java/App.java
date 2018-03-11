@@ -6,6 +6,10 @@ import java.util.Map;
 
 /**
  * Приложение (Application).
+ *
+ *
+ *
+ *
  */
 public class App {
 

@@ -1,3 +1,10 @@
+/**
+ * Запись (Record).
+ *
+ *
+ *
+ *
+ */
 public class Record {
 
     /**
